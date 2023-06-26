@@ -1,0 +1,3 @@
+.success {
+  @apply fixed top-3 left-3 w-36 p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50;
+}
