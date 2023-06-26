@@ -46,6 +46,10 @@ function Form() {
       .then((response) => response.json())
       .then(() => setOpenAlert(true))
       .catch((_error) => alert('Something went wrong...'));
+
+    // Resetting inputs
+    emailRef.current = '';
+    githubRepositoryUrlRef.current = '';
   };
 
   return (
