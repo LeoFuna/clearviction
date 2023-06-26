@@ -1,24 +1,57 @@
 'use client';
-import { useRef } from 'react';
+import { validateEmail } from '@/utils/regex.utils';
+import { useRef, useState } from 'react';
+import Alert from '../alert/Alert';
 import Button from '../button/Button';
 import TextInput from '../input/TextInput/TextInput';
 import styles from './Form.module.css';
 
-export interface IForm {}
+interface IValidateForm {
+  email: string;
+  githubRepoUrl: string;
+}
 
-function Form(_props: IForm) {
+const validateForm = ({ email, githubRepoUrl }: IValidateForm) => {
+  if (!email.trim()) return 'Please email is required!';
+  if (!githubRepoUrl.trim()) return 'Please repository url is required!';
+  if (!validateEmail(email)) return 'Invalid email';
+  return null;
+};
+
+function Form() {
+  const [openAlert, setOpenAlert] = useState<boolean>(false);
+  // Here I`m using useRef just because its a simple form and ref dont rerender on user type.
+  // When using in a real project we have other better ways to handle forms, for example: using the react hook form lib.
   const emailRef = useRef('');
   const githubRepositoryUrlRef = useRef('');
 
   const onSubmit = () => {
-    if (!emailRef.current.trim()) return alert('Please email is required!');
-    if (!githubRepositoryUrlRef.current.trim())
-      return alert('Please repository url is required!');
+    const alertMessage = validateForm({
+      email: emailRef.current,
+      githubRepoUrl: githubRepositoryUrlRef.current,
+    });
+    if (alertMessage) return alert(alertMessage);
+
+    fetch('myUrl', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: emailRef.current,
+        githubRepoUrl: githubRepositoryUrlRef.current,
+      }),
+    })
+      .then((response) => response.json())
+      .then(() => setOpenAlert(true))
+      .catch((_error) => alert('Something went wrong...'));
   };
 
   return (
     <div className={styles.form}>
-      {/* {!!router?.query?.error && <p className="text-red-600 text-center">!! Usuário ou senha inválidos !!</p>} */}
+      <Alert
+        message="Success!"
+        openAlert={openAlert}
+        setOpenAlert={setOpenAlert}
+      />
       <TextInput inputRef={emailRef} label="Email" type="email" />
       <TextInput
         inputRef={githubRepositoryUrlRef}
