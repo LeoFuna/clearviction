@@ -1,0 +1,3 @@
+.form {
+  @apply px-7 py-4 flex flex-col gap-4 w-full;
+}
