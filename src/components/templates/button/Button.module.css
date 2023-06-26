@@ -1,6 +1,6 @@
 .submit {
-  @apply p-2 rounded-md border bg-gradient-to-tr from-purple-500 to-purple-600 text-white font-bold text-lg;
+  @apply p-2 rounded-md border bg-gradient-to-tr from-green-500 to-green-600 text-white font-bold text-lg;
 }
 .button {
-  @apply p-2 rounded-md border border-purple-600 text-purple-600 font-bold text-lg;
+  @apply p-2 rounded-md border border-green-600 text-green-600 font-bold text-lg;
 }

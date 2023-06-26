@@ -10,6 +10,12 @@ function Form(_props: IForm) {
   const emailRef = useRef('');
   const githubRepositoryUrlRef = useRef('');
 
+  const onSubmit = () => {
+    if (!emailRef.current.trim()) return alert('Please email is required!');
+    if (!githubRepositoryUrlRef.current.trim())
+      return alert('Please repository url is required!');
+  };
+
   return (
     <div className={styles.form}>
       {/* {!!router?.query?.error && <p className="text-red-600 text-center">!! Usuário ou senha inválidos !!</p>} */}
@@ -19,11 +25,7 @@ function Form(_props: IForm) {
         label="Repository Url"
         type="text"
       />
-      <Button
-        label="Subscribe"
-        type="submit"
-        onClick={() => console.log('Sou o sbscribe')}
-      />
+      <Button label="Subscribe" type="submit" onClick={onSubmit} />
       <Button label="Clear" onClick={() => console.log('sou o Clear')} />
     </div>
   );
