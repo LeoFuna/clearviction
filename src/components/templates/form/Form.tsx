@@ -32,14 +32,17 @@ function Form() {
     });
     if (alertMessage) return alert(alertMessage);
 
-    fetch('myUrl', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        email: emailRef.current,
-        githubRepoUrl: githubRepositoryUrlRef.current,
-      }),
-    })
+    fetch(
+      'https://7pu263mpcarw3lhazop5ec7u7e0bclzu.lambda-url.us-east-1.on.aws/',
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: emailRef.current,
+          githubRepoUrl: githubRepositoryUrlRef.current,
+        }),
+      }
+    )
       .then((response) => response.json())
       .then(() => setOpenAlert(true))
       .catch((_error) => alert('Something went wrong...'));
